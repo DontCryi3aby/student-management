@@ -7,5 +7,5 @@ export function* log(action: PayloadAction) {
 export default function* counterSaga() {
     console.log('Counter Saga');
 
-    yield takeEvery(increment().type, log);
+    yield takeEvery(increment.toString(), log);
 }
