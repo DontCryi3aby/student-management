@@ -17,3 +17,10 @@ export interface ListParams {
 
     [key: string]: any;
 }
+
+export interface RouteProps {
+    path: string;
+    component: any;
+    layout?: any;
+    private?: boolean;
+}

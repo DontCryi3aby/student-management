@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
 import cityApi from 'api/cityApi';
 import studentApi from 'api/studentApi';
+import MainLayout from 'components/Layouts/MainLayout';
+import { Fragment, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import ROUTES from 'routes';
+import './App.css';
+import { NotFound, PrivateRoute } from 'components/Common';
 
 function App() {
     useEffect(() => {
@@ -15,53 +17,35 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <Counter />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <span>
-                    <span>Learn </span>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        React
-                    </a>
-                    <span>, </span>
-                    <a
-                        className="App-link"
-                        href="https://redux.js.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Redux
-                    </a>
-                    <span>, </span>
-                    <a
-                        className="App-link"
-                        href="https://redux-toolkit.js.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Redux Toolkit
-                    </a>
-                    ,<span> and </span>
-                    <a
-                        className="App-link"
-                        href="https://react-redux.js.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        React Redux
-                    </a>
-                </span>
-            </header>
-        </div>
+        <Routes>
+            {ROUTES.map((route, index) => {
+                const Page = route.component;
+
+                let Layout: any = MainLayout;
+                if (route?.layout) {
+                    Layout = route.layout;
+                } else if (route.layout === null) {
+                    Layout = Fragment;
+                }
+
+                const PrivateRouteCheck = route?.private ? PrivateRoute : Fragment;
+
+                return (
+                    <Route
+                        key={index}
+                        path={route.path}
+                        element={
+                            <PrivateRouteCheck>
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            </PrivateRouteCheck>
+                        }
+                    />
+                );
+            })}
+            <Route path="*" element={<NotFound />}></Route>
+        </Routes>
     );
 }
 
