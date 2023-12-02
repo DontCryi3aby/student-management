@@ -1,6 +1,7 @@
 import { call, delay, fork, put, take } from 'redux-saga/effects';
 import { LoginPayload, authActions } from './authSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { history } from 'utils';
 
 function* handleLogin(payload: LoginPayload) {
     try {
@@ -13,6 +14,9 @@ function* handleLogin(payload: LoginPayload) {
                 name: 'Nguyen Ngoc Thach',
             }),
         );
+
+        // history.push('/admin')
+        yield call(history.push, '/admin');
     } catch (error: any) {
         yield put(authActions.loginFailed(error.message));
     }
@@ -21,6 +25,8 @@ function* handleLogin(payload: LoginPayload) {
 function* handleLogout() {
     yield delay(500);
     localStorage.removeItem('user_name');
+    // history.push("login")
+    yield call(history.push, '/login');
 }
 
 function* watchLoginflow() {

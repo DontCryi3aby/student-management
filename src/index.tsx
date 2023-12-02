@@ -5,9 +5,9 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from 'utils/themes';
+import { history, theme } from 'utils';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -16,10 +16,10 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
+                <HistoryRouter history={history}>
                     <CssBaseline />
                     <App />
-                </BrowserRouter>
+                </HistoryRouter>
             </ThemeProvider>
             ,
         </Provider>
