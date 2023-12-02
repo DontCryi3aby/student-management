@@ -1,9 +1,24 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
-import * as React from 'react';
+import { useAppDispatch } from 'app/hooks';
+import { authActions } from '../authSlice';
 
 export interface LoginPageProps {}
 
 export default function LoginPage(props: LoginPageProps) {
+    const dispatch = useAppDispatch();
+    const handleLoginClick = () => {
+        dispatch(
+            authActions.login({
+                username: '',
+                password: '',
+            }),
+        );
+    };
+
+    const handleLogoutClick = () => {
+        dispatch(authActions.logout());
+    };
+
     return (
         <Box
             sx={{
@@ -19,10 +34,25 @@ export default function LoginPage(props: LoginPageProps) {
                 </Typography>
 
                 <Box mt={2}>
-                    <Button fullWidth variant="contained" color="primary">
+                    <Button
+                        onClick={handleLoginClick}
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                    >
                         Fake login
                     </Button>
                 </Box>
+
+                <Button
+                    sx={{ mt: 2 }}
+                    onClick={handleLogoutClick}
+                    variant="contained"
+                    fullWidth
+                    color="primary"
+                >
+                    Logout
+                </Button>
             </Paper>
         </Box>
     );
