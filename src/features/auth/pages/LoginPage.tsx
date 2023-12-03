@@ -1,11 +1,15 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
-import { useAppDispatch } from 'app/hooks';
-import { authActions } from '../authSlice';
+import { Box, Button, CircularProgress, Paper, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Navigate } from 'react-router-dom';
+import { authActions, selectIsLogging } from '../authSlice';
 
 export interface LoginPageProps {}
 
 export default function LoginPage(props: LoginPageProps) {
     const dispatch = useAppDispatch();
+    const isLogging = useAppSelector(selectIsLogging);
+    const isLoggedIn = !!localStorage.getItem('user_name');
+
     const handleLoginClick = () => {
         dispatch(
             authActions.login({
@@ -15,9 +19,7 @@ export default function LoginPage(props: LoginPageProps) {
         );
     };
 
-    const handleLogoutClick = () => {
-        dispatch(authActions.logout());
-    };
+    if (isLoggedIn) return <Navigate to="/admin" />;
 
     return (
         <Box
@@ -39,20 +41,12 @@ export default function LoginPage(props: LoginPageProps) {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        disabled={isLogging}
                     >
+                        {isLogging && <CircularProgress sx={{ mr: 1 }} color="inherit" size={20} />}
                         Fake login
                     </Button>
                 </Box>
-
-                <Button
-                    sx={{ mt: 2 }}
-                    onClick={handleLogoutClick}
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                >
-                    Logout
-                </Button>
             </Paper>
         </Box>
     );

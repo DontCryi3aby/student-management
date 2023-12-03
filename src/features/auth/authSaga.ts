@@ -16,7 +16,7 @@ function* handleLogin(payload: LoginPayload) {
         );
 
         // history.push('/admin')
-        yield call(history.push, '/admin');
+        yield call(history.push, '/admin/dashboard');
     } catch (error: any) {
         yield put(authActions.loginFailed(error.message));
     }
@@ -38,7 +38,7 @@ function* watchLoginflow() {
             yield call(handleLogout);
         } else {
             const action: PayloadAction<LoginPayload> = yield take(authActions.login.type);
-            yield fork(handleLogin, action.payload);
+            yield call(handleLogin, action.payload);
         }
     }
 }

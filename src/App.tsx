@@ -1,21 +1,12 @@
-import cityApi from 'api/cityApi';
-import studentApi from 'api/studentApi';
+import { NotFound, PrivateRoute } from 'components/Common';
 import MainLayout from 'components/Layouts/MainLayout';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from 'routes';
 import './App.css';
-import { NotFound, PrivateRoute } from 'components/Common';
+import './styles/globals.css';
 
 function App() {
-    useEffect(() => {
-        (async () => {
-            const cities = await cityApi.getAll();
-            const students = await studentApi.getAll();
-            console.log({ cities, students });
-        })();
-    }, []);
-
     return (
         <Routes>
             {ROUTES.map((route, index) => {
