@@ -11,6 +11,7 @@ export interface Statistics {
 
 export interface RankingByCityList {
     cityId: string;
+    cityName: string;
     rankingList: Student[];
 }
 
