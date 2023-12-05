@@ -19,7 +19,7 @@ export default function LoginPage(props: LoginPageProps) {
         );
     };
 
-    if (isLoggedIn) return <Navigate to="/admin" />;
+    if (isLoggedIn) return <Navigate to="/admin/dashboard" />;
 
     return (
         <Box
