@@ -16,7 +16,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <Box width={240}>
                     <Sidebar />
                 </Box>
-                <Box flex={1}>{children}</Box>
+                <Box flex={1} p="8px 24px" position="relative">
+                    {children}
+                </Box>
             </Stack>
         </Stack>
     );

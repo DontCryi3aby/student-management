@@ -16,15 +16,9 @@ export default function RankingList({ studentList }: RankingListProps) {
             <Table size="small" aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{ fontSize: '12px' }} align="center">
-                            #
-                        </TableCell>
-                        <TableCell sx={{ fontSize: '12px' }} align="left">
-                            Name
-                        </TableCell>
-                        <TableCell sx={{ fontSize: '12px' }} align="right">
-                            Mark
-                        </TableCell>
+                        <TableCell align="center">#</TableCell>
+                        <TableCell align="left">Name</TableCell>
+                        <TableCell align="right">Mark</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

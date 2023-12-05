@@ -28,7 +28,7 @@ export default function DashBoard() {
     }, [dispatch]);
 
     return (
-        <Box p="8px 24px" position="relative">
+        <Box>
             {/* Loading */}
             {loading && (
                 <LinearProgress
